@@ -58,7 +58,7 @@ COPY . .
 
 EXPOSE 8000
 ENTRYPOINT /docker-entrypoint.sh $0 $@
-CMD ["uvicorn", "--host 0.0.0.0", "app.asgi:app"]
+CMD ["uvicorn", "--host 0.0.0.0", "app.main:app"]
 
 # 'production' stage uses the clean 'python-base' stage and copyies
 # in only our runtime deps that were installed in the 'builder-base'
@@ -76,4 +76,4 @@ COPY ./app /discinstock_api/app
 WORKDIR /discinstock_api
 
 ENTRYPOINT /docker-entrypoint.sh $0 $@
-CMD ["gunicorn", "--worker-class uvicorn.workers.UvicornWorker", "--config /gunicorn_conf.py", "app.asgi:app"]
+CMD ["gunicorn", "--worker-class uvicorn.workers.UvicornWorker", "--config /gunicorn_conf.py", "app.main:app"]

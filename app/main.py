@@ -1,4 +1,3 @@
-import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,7 +5,9 @@ from .routers import discs
 
 
 def get_app():
-  app = FastAPI(title="Discinstock_api")
+  app = FastAPI(
+    title="Discinstock_api"
+  )
 
   app.add_middleware(
     CORSMiddleware,
@@ -24,5 +25,8 @@ def get_app():
     return {"API to find discgolf discs in stock in diffrent websites where you can buy discs"}
 
   return app
+
+
+app = get_app()
 
 
