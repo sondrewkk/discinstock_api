@@ -1,4 +1,3 @@
-from typing import Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
 
@@ -29,3 +28,4 @@ class DiscModel(BaseModel):
         "retailer": "dgshop.no"
       }
     }
+  

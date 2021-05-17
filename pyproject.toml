@@ -11,6 +11,7 @@ uvicorn = {extras = ["standard"], version = "^0.13.4"}
 pymongo = "^3.11.3"
 motor = "^2.4.0"
 gunicorn = "^20.1.0"
+python-dotenv = "^0.17.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "5.3.5"
@@ -20,7 +21,7 @@ isort = { version = "^4.3.21", extras = ["pyproject"]}
 requests = "^2.23.0"
 
 [tool.poetry.scripts]
-start = "app.asgi:app"
+start = "app.app:main"
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]

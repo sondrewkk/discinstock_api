@@ -1,31 +1,27 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter
 from typing import List, Optional
 
-from ..database import db
+from fastapi.params import Query
+
+#from ..database import db
 from ..models.disc import DiscModel
+from ..services.disc_service import get_discs, get_disc_by_name
 
-router = APIRouter()
 
-
-@router.get("/discs", response_description="List all discs", response_model=List[DiscModel])
-async def list_discs(in_stock: Optional[bool] = True, skip: int = 0, limit: int = 50):
-  query = {}
-  
-  if in_stock is not None:
-    query["in_stock"] = in_stock
-
-  discs = await db["discs"].find(query).limit(limit).skip(skip).to_list(limit)
-  return discs
+router = APIRouter(prefix="/discs")
 
 @router.get(
-  "/discs/search/", 
+  "", 
+  response_description="List all discs", 
+  response_model=List[DiscModel])
+async def list_discs(in_stock: Optional[bool] = True, skip: int = 0, limit: int = 50):
+  response = await get_discs(in_stock, skip, limit)
+  return response
+
+@router.get(
+  "/search", 
   response_description="Search after disc by name", 
   response_model=List[DiscModel])
-async def get_disc(name: str, exact: Optional[bool] = False, in_stock: Optional[bool] = True):
-  query = {
-    "name": {"$regex": name, "$options": "i"},
-    "in_stock": in_stock
-  }
-  
-  discs = await db["discs"].find(query).to_list(50)
-  return discs
+async def get_disc(name: str = Query(None, min_length=3)):
+  response = await get_disc_by_name(name)
+  return response
