@@ -25,3 +25,7 @@ async def get_disc_by_name(name: str):
 
     discs: List[DiscModel] = await db["discs"].find(query).to_list(50)
     return discs
+
+async def count_discs(in_stock: bool = True):
+    count = await db["discs"].count_documents({ "in_stock": in_stock })
+    return count
