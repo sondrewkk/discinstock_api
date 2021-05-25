@@ -40,7 +40,7 @@ async def list_discs(
     response_description="Search after disc by name", 
     response_model=List[DiscModel])
 async def get_disc(
-    name: str = Query(None, min_length=3)
+    name: str = Query(None, min_length=2)
 ):
     response = await get_disc_by_name(name)
     return response
