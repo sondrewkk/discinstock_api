@@ -11,4 +11,5 @@ class Settings():
     mongo_port = int(getenv("MONGO_PORT", 27017))
     mongo_db = getenv("MONGO_DB")
     mongo_non_root_username = getenv("MONGO_NON_ROOT_USERNAME")
-    mongo_non_root_password = get_secret("MONGO_NON_ROOT_PASSWORD_FILE")
+    secret_file = getenv("MONGO_NON_ROOT_PASSWORD_FILE")
+    mongo_non_root_password = get_secret(secret_file)

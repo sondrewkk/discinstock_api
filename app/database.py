@@ -12,7 +12,7 @@ class Database():
       self.client = self.__create_db_client()
 
   def __create_db_client(self):
-    uri = "mongodb://localhost:27017"
+    uri = f"mongodb://{self.config.mongo_host}:{self.config.mongo_port}"
 
     if self.config.mongo_non_root_username:
       uri = f"mongodb://{self.config.mongo_non_root_username}:{self.config.mongo_non_root_password}@{self.config.mongo_host}:{self.config.mongo_port}/?authSource={self.config.mongo_db}"
