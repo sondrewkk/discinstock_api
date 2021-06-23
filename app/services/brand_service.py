@@ -1,6 +1,7 @@
 from ..database import Database
 from ..config import Settings
 
+
 config = Settings()
 client = Database(config).get_client()
 
@@ -12,30 +13,23 @@ async def get_brands():
         {
             '$group': {
                 '_id': None, 
-                'brand': {
+                'name': {
                     '$addToSet': '$brand'
                 }
             }
         }, {
-            '$unwind': '$brand'
+            '$unwind': '$name'
         }, {
             '$sort': {
-                'brand': 1
-            }
-        }, {
-            '$group': {
-                '_id': None, 
-                'brands': {
-                    '$push': '$brand'
-                }
+                'name': 1
             }
         }, {
             '$project': {
                 '_id': False
             }
         }
-    ]  
+    ]
 
-    brands = await db["discs"].aggregate(distinct_brands_pipeline).next()
+    brands = await db["discs"].aggregate(distinct_brands_pipeline).to_list(100)
 
     return brands
