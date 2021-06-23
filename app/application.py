@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # Import routes
 from .routers import root
 from .routers import discs
+from .routers import brands
 
 class Application():
     
@@ -23,6 +24,7 @@ class Application():
         # Routes
         self._app.include_router(root.router)
         self._app.include_router(discs.router)
+        self._app.include_router(brands.router)
 
     def get_app(self):
         return self._app 
