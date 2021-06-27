@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
 
@@ -6,12 +7,18 @@ from .pyobjectid import PyObjectId
 
 class DiscModel(BaseModel):
   id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-  name: str = Field(...)
-  image: str = Field(...)
-  spider_name: str = Field(...)
-  in_stock: bool = Field(...)
-  url: str = Field(...)
-  retailer: str = Field(...)
+  name: str
+  image: str
+  spider_name: str
+  in_stock: bool
+  url: str
+  retailer: str
+  brand: str
+  price: int
+  speed: Optional[str]
+  glide: Optional[str]
+  turn: Optional[str]
+  fade: Optional[str]
 
   class Config:
     allow_population_by_field_name = True,
@@ -20,12 +27,18 @@ class DiscModel(BaseModel):
     schema_extra = {
       "example": {
         "_id": "607a1d5406f9d87ebea936d5",
-        "name": "K3 Berg",
-        "image": "https://www.dgshop.no/pub/media/catalog/product/cache/873ab35ce770a8e6abb698435365a0d0/b/e/berg_k3_b.jpg",
+        "name": "K3 Reko",
+        "image": "https://www.dgshop.no/pub/media/catalog/product/cache/873ab35ce770a8e6abb698435365a0d0/r/e/reko_k3_b.png",
+        "url":"https://www.dgshop.no/k3-reko",
         "spider_name": "dgshop",
-        "in_stock": True,
-        "url": "https://www.dgshop.no/k3-berg",
-        "retailer": "dgshop.no"
+        "in_stock": "true",
+        "retailer": "dgshop.no",
+        "brand": "Kastaplast",
+        "price": "145",
+        "speed": "3",
+        "glide": "3",
+        "turn": "0",
+        "fade": "1",
       }
     }
   
