@@ -1,0 +1,51 @@
+
+[
+    {
+        "name": "aceshop.no",
+        "link": "https://aceshop.no/",
+        "logo": "https://aceshop.no/users/aceshopas_mystore_no/logo/Header08.04.200.png",
+        "country": "no"
+    },
+    {
+        "name": "dgshop.no",
+        "link": "https://www.dgshop.no/",
+        "logo": "http://sandefjordfrisbee.net/wp-content/uploads/2018/05/dgshop_logo_1.png",
+        "country": "no"
+    },
+    {
+        "name": "discgolfdynasty.no",
+        "link": "https://www.discgolfdynasty.no/",
+        "logo": "https://cdn.shopify.com/s/files/1/0564/5824/8377/files/image-02_360x.png?v=1619603473",
+        "country": "no"
+    },
+    {
+        "name": "frisbeebutikken.no",
+        "link": "https://www.frisbeebutikken.no/",
+        "logo": "https://scontent.fsvg2-1.fna.fbcdn.net/v/t1.6435-9/122012740_2777840345831058_2040867751193066927_n.jpg?_nc_cat=103&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=BXldoKqFe8kAX9WQQho&_nc_ht=scontent.fsvg2-1.fna&oh=6e1dc19ee41832b9aac5ef37dc0f6e9b&oe=60E385C7",
+        "country": "no"
+    },
+    {
+        "name": "frisbeesor.no",
+        "link": "https://www.frisbeesor.no/",
+        "logo": "https://usercontent.one/wp/www.frisbeesor.no/wp-content/uploads/2020/07/FrisbeeSor_1.3-160x99.png",
+        "country": "no"
+    },
+    {
+        "name": "golfdiscer.no",
+        "link": "https://golfdiscer.no",
+        "logo": "https://cdn.shopify.com/s/files/1/0463/6003/5495/t/17/assets/golfdiscer_logo.svg?v=4152952574589564481",
+        "country": "no"
+    },
+    {
+        "name": "gurudiscgolf.no",
+        "link": "https://gurudiscgolf.no/",
+        "logo": "https://gurudiscgolf.no/image/catalog/logo_gurudiscgolf.png",
+        "country": "no"
+    },
+        {
+        "name": "krokholdgs.no",
+        "link": "https://www.krokholdgs.no/",
+        "logo": "https://www.krokholdgs.no/users/krokholdgs_mystore_no/logo/Header02.28.219.png",
+        "country": "no"
+    }
+]
