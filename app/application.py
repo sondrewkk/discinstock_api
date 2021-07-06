@@ -6,6 +6,7 @@ from .routers import root
 from .routers import discs
 from .routers import brands
 from .routers import retailers
+from .routers import authorization
 
 class Application():
     
@@ -24,6 +25,7 @@ class Application():
 
         # Routes
         self._app.include_router(root.router)
+        self._app.include_router(authorization.router)
         self._app.include_router(discs.router)
         self._app.include_router(brands.router)
         self._app.include_router(retailers.router)
