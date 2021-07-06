@@ -12,3 +12,6 @@ class Settings:
     mongo_db = getenv("MONGO_DB")
     mongo_non_root_username = getenv("MONGO_NON_ROOT_USERNAME")
     mongo_non_root_password = get_secret("MONGO_NON_ROOT_PASSWORD_FILE")
+    jwt_secret_key = get_secret("JWT_SECRET_KEY_FILE")
+    algorithm = getenv("ALGORITHM")
+    access_token_expire_minutes = int(getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))

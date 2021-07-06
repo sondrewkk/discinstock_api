@@ -1,49 +1,32 @@
 from typing import Optional
-from fastapi import status, Depends
-from fastapi.exceptions import HTTPException
+from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 from datetime import timedelta, datetime
 
-from ..models.user import UserInDB, User
+from ..models.user import User
 from ..models.token import TokenData
+from ..config import Settings
+from ..database import Database
+from ..exceptions.authentication_exceptions import (
+    CredentialsException,
+    IncorrectUsernameOrPasswordException,
+)
 
 
-class CredentialsException(HTTPException):
-    def __init__(self) -> None:
-        detail = "Could not validate credentials"
-        headers = {"WWW-Authenticate": "Bearer"}
-        status_code = status.HTTP_401_UNAUTHORIZED
+config = Settings()
 
-        super().__init__(status_code=status_code, detail=detail, headers=headers)
-
-
-class IncorrectUsernameOrPasswordException(HTTPException):
-    def __init__(self) -> None:
-        detail = "Incorrect username or password"
-        headers = {"WWW-Authenticate": "Bearer"}
-        status_code = status.HTTP_401_UNAUTHORIZED
-
-        super().__init__(status_code=status_code, detail=detail, headers=headers)
-
+client = Database(config).get_client()
+db_name = config.mongo_db
+db = client[db_name]
 
 oauth2_schema = OAuth2PasswordBearer(tokenUrl="/token")
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-db = {
-    "discinstock": {
-        "username": "discinstock",
-        "hashed_password": "$2b$12$krJKHaC.bjy86laqZlxqYORBhd2SROsrZ7CaJ4RgAHrlovxXQkj/C",
-    }
-}
-
-secret_key = "9e077309686c8657e9e6f91108f492d7091cade20ba29b40e19ed6ea6a8e8e34"
-algorithm = "HS256"
-access_token_expire_minutes = 30
 
 
 def get_access_token_expire_minutes() -> int:
-    return access_token_expire_minutes
+    return config.access_token_expire_minutes
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -54,24 +37,23 @@ def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)
 
 
-def get_user(username: str) -> UserInDB:
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+async def get_user(username: str) -> User:
+    user: User = await db["users"].find_one({"username": username})
+    return user
 
 
-def authenticate_user(username: str, password: str) -> User:
-    user = get_user(username)
+async def authenticate_user(username: str, password: str) -> User:
+    user = await get_user(username)
 
     if not user:
         raise IncorrectUsernameOrPasswordException()
 
-    verified_password = verify_password(password, user.hashed_password)
+    verified_password = verify_password(password, user["hashed_password"])
 
     if not verified_password:
         raise IncorrectUsernameOrPasswordException()
 
-    return User(username=user.username)
+    return user
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
@@ -83,13 +65,17 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
         expire = datetime.utcnow + timedelta(minutes=15)
 
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, secret_key, algorithm=algorithm)
+    encoded_jwt = jwt.encode(
+        to_encode, config.jwt_secret_key, algorithm=config.algorithm
+    )
     return encoded_jwt
 
 
 async def validate_token(token: str = Depends(oauth2_schema)) -> bool:
     try:
-        payload = jwt.decode(token, secret_key, algorithms=[algorithm])
+        payload = jwt.decode(
+            token, config.jwt_secret_key, algorithms=[config.algorithm]
+        )
         username: str = payload.get("sub")
 
         if username is None:
@@ -99,7 +85,8 @@ async def validate_token(token: str = Depends(oauth2_schema)) -> bool:
     except JWTError:
         raise CredentialsException()
 
-    user = get_user(username=token_data.username)
+    user = await get_user(username=token_data.username)
+
     if user is None:
         raise CredentialsException()
 
