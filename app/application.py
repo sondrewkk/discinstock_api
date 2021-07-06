@@ -8,11 +8,11 @@ from .routers import brands
 from .routers import retailers
 from .routers import authorization
 
-class Application():
-    
+
+class Application:
     def __init__(self, title="Application"):
         self._app = FastAPI(title=title)
-        
+
         # Middleware
         self._app.add_middleware(
             CORSMiddleware,
@@ -20,7 +20,7 @@ class Application():
             allow_credentials=True,
             allow_methods=["*"],
             allow_headers=["*"],
-            expose_headers=["link"]
+            expose_headers=["link"],
         )
 
         # Routes
@@ -31,4 +31,4 @@ class Application():
         self._app.include_router(retailers.router)
 
     def get_app(self):
-        return self._app 
+        return self._app

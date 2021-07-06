@@ -3,7 +3,7 @@ from .util.docker_secret import get_secret
 from dotenv import load_dotenv
 
 
-class Settings():
+class Settings:
     load_dotenv()
 
     app_title: str = "Discinstock API"

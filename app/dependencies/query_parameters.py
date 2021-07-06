@@ -5,6 +5,10 @@ from ..util.pagination import PaginationParameters
 
 
 class CommonQueryParameters:
-    def __init__(self, in_stock: Optional[bool] = True, pagination: PaginationParameters = Depends()) -> None:
-        self.in_stock=in_stock
-        self.pagination=pagination
+    def __init__(
+        self,
+        in_stock: Optional[bool] = True,
+        pagination: PaginationParameters = Depends(),
+    ) -> None:
+        self.in_stock = in_stock
+        self.pagination = pagination
