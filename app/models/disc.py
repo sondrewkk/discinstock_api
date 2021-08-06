@@ -15,10 +15,10 @@ class DiscModel(BaseModel):
     retailer: str
     brand: str
     price: int
-    speed: Optional[str]
-    glide: Optional[str]
-    turn: Optional[str]
-    fade: Optional[str]
+    speed: Optional[float]
+    glide: Optional[float]
+    turn: Optional[float]
+    fade: Optional[float]
 
     class Config:
         allow_population_by_field_name = (True,)
