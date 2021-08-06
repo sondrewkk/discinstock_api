@@ -5,7 +5,7 @@ from ..services.brand_service import get_brands
 from ..models.brand import BrandModel
 
 
-router = APIRouter(prefix="/brands")
+router = APIRouter(prefix="/brands", tags=["Brands"])
 
 
 @router.get(

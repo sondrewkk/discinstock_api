@@ -12,7 +12,7 @@ from ..util.pagination import Pagination
 from ..util.link_header import LinkHeader
 
 
-router = APIRouter(prefix="/discs")
+router = APIRouter(prefix="/discs", tags=["Discs"])
 
 
 @router.get(
