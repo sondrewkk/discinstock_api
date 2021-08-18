@@ -1,6 +1,7 @@
 from typing import Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
+from datetime import datetime
 
 from .pyobjectid import PyObjectId
 
@@ -19,6 +20,9 @@ class DiscModel(BaseModel):
     glide: Optional[float]
     turn: Optional[float]
     fade: Optional[float]
+    created: datetime
+    last_updated: datetime
+
 
     class Config:
         allow_population_by_field_name = (True,)
@@ -39,5 +43,42 @@ class DiscModel(BaseModel):
                 "glide": "3",
                 "turn": "0",
                 "fade": "1",
+                "created": "2021-08-11T23:14:48.920Z",
+                "last_update": "2021-08-11T23:14:48.920Z",
+            }
+        }
+
+class CreateDiscModel(BaseModel):
+    name: str
+    image: str
+    spider_name: str
+    in_stock: bool
+    url: str
+    retailer: str
+    brand: str
+    price: int
+    speed: Optional[float]
+    glide: Optional[float]
+    turn: Optional[float]
+    fade: Optional[float]
+
+class UpdateDiscModel(BaseModel):
+    name: Optional[str]
+    image: Optional[str]
+    spider_name: Optional[str]
+    in_stock: Optional[bool]
+    url: Optional[str]
+    retailer: Optional[str]
+    brand: Optional[str]
+    price: Optional[int]
+    speed: Optional[float]
+    glide: Optional[float]
+    turn: Optional[float]
+    fade: Optional[float]
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "in_stock": "true"
             }
         }
