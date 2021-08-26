@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Header, Depends, status
-from fastapi.params import Query, Body
+from fastapi.params import Body
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from typing import List
 from bson.objectid import ObjectId
 
 from ..models.disc import DiscModel, CreateDiscModel, UpdateDiscModel
-from ..services.disc_service import count_discs, get_discs, get_disc_by_name, create_disc, update_disc
-from ..dependencies.query_parameters import CommonQueryParameters
+from ..services.disc_service import count_discs, get_discs, get_disc_by_query, create_disc, update_disc
+from ..dependencies.query_parameters import CommonQueryParameters, SearchQueryParameters
 from ..util.pagination import Pagination
 from ..util.link_header import LinkHeader
 from ..services.auth_service import validate_token
@@ -39,11 +39,11 @@ async def list_discs(
 
 @router.get(
     "/search",
-    response_description="Search after disc by name",
+    response_description="Search by query",
     response_model=List[DiscModel],
 )
-async def get_disc(name: str = Query(None, min_length=2)):
-    response = await get_disc_by_name(name)
+async def search_discs(query: SearchQueryParameters = Depends()):
+    response = await get_disc_by_query(query)
     return response
 
 @router.post(

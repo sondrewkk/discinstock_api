@@ -12,3 +12,13 @@ class CommonQueryParameters:
     ) -> None:
         self.in_stock = in_stock
         self.pagination = pagination
+
+class SearchQueryParameters:
+    def __init__(
+        self,
+        spider_name: Optional[str] = None,
+    ) -> None:
+        self.spider_name = spider_name
+    
+    def dict(self):
+        return self.__dict__

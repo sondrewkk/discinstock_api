@@ -1,13 +1,14 @@
 from datetime import datetime
 from bson.objectid import ObjectId
-from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import HTTPException
+from typing import List
+from pymongo.results import UpdateResult, InsertOneResult
+
 from ..database import Database
 from ..config import Settings
 from ..models.disc import CreateDiscModel, DiscModel, UpdateDiscModel
 from ..exceptions.disc_exceptions import DiscNotCreatedException, DiscNotFoundException, DiscNotUpdatedException
-from typing import List
-from pymongo.results import UpdateResult, InsertOneResult
+from ..dependencies.query_parameters import SearchQueryParameters
 
 
 config = Settings()
@@ -26,10 +27,9 @@ async def get_discs(in_stock: bool, skip: int, limit: int):
     return discs
 
 
-async def get_disc_by_name(name: str):
-    query = {"name": {"$regex": name, "$options": "i"}, "in_stock": True}
-
-    discs: List[DiscModel] = await db["discs"].find(query).to_list(50)
+async def get_disc_by_query(query: SearchQueryParameters):
+    query = query.dict()
+    discs: List[DiscModel] = await db["discs"].find(query).to_list(1000)
     return discs
 
 async def get_disc_by_id(id: ObjectId) -> DiscModel:
