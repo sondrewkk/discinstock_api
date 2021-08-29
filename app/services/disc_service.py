@@ -18,7 +18,8 @@ db_name = config.mongo_db
 db = client[db_name]
 
 
-async def get_discs(in_stock: bool, skip: int, limit: int):
+async def get_discs(in_stock: bool, skip: int, limit: int
+) -> List[DiscModel]:
     query = {"in_stock": in_stock}
 
     discs: List[DiscModel] = await db["discs"].find(query).limit(limit).skip(
@@ -27,31 +28,24 @@ async def get_discs(in_stock: bool, skip: int, limit: int):
     return discs
 
 
-async def get_disc_by_query(query: SearchQueryParameters):
+async def get_disc_by_query(query: SearchQueryParameters
+) -> List[DiscModel]:
     query = query.dict()
     discs: List[DiscModel] = await db["discs"].find(query).to_list(1000)
     return discs
 
-async def get_disc_by_id(id: ObjectId) -> DiscModel:
-    
+
+async def get_disc_by_id(id: ObjectId
+) -> DiscModel:
     disc: DiscModel = await db["discs"].find_one({"_id": id})
     return disc
 
-async def set_disc(id: ObjectId, disc: dict) -> DiscModel:
-    
-    disc["last_updated"] = datetime.now()
-    result: UpdateResult = await db["discs"].update_one({"_id": id}, {"$set": disc})
 
-    if result.modified_count == 0:
-        return None
-    
-    updated_disc = await get_disc_by_id(id)
-    return updated_disc
-    
-
-async def count_discs(in_stock: bool = True):
+async def count_discs(in_stock: bool = True
+) -> int:
     count = await db["discs"].count_documents({"in_stock": in_stock})
     return count
+
 
 async def create_disc(disc: CreateDiscModel
 ) -> DiscModel:
@@ -81,6 +75,7 @@ async def create_disc(disc: CreateDiscModel
     created_disc = await db["discs"].find_one({ "_id": result.inserted_id })
     return created_disc
 
+
 async def update_disc(id: ObjectId, disc: UpdateDiscModel
 ) -> DiscModel: 
     # Check if the disc is already stored in database
@@ -90,7 +85,10 @@ async def update_disc(id: ObjectId, disc: UpdateDiscModel
 
     # Create an dict only with the keys to update
     update_data = disc.dict(exclude_unset=True)
-    update_data["last_updated"] = datetime.now()
+
+    # In stock is the only key that triggers a last_update update
+    if "in_stock" in update_data.keys() and stored_disc['in_stock'] != update_data['in_stock']:
+        update_data["last_updated"] = datetime.now()
 
     # Write over selected key and 
     result: UpdateResult = await db["discs"].update_one({"_id": id}, {"$set": update_data})
