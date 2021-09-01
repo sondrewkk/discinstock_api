@@ -42,10 +42,16 @@
         "logo": "https://gurudiscgolf.no/image/catalog/logo_gurudiscgolf.png",
         "country": "no"
     },
-        {
+    {
         "name": "krokholdgs.no",
         "link": "https://www.krokholdgs.no/",
         "logo": "https://www.krokholdgs.no/users/krokholdgs_mystore_no/logo/Header02.28.219.png",
+        "country": "no"
+    },
+    {
+        "name": "frisbeefeber.no",
+        "link": "https://www.frisbeefeber.no/",
+        "logo": "https://www.frisbeefeber.no/users/frisbeefeber_mystore_no/logo/Header07.10.214.png",
         "country": "no"
     }
 ]
