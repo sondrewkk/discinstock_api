@@ -11,8 +11,9 @@ db = client[db_name]
 
 async def get_retailers():
     retailers = await db["retailers"].find({}).to_list(100)
+    sorted_retailers = sorted(retailers, key=lambda r: r["name"])
 
-    return retailers
+    return sorted_retailers
 
 
 async def create_retailer(retailer):
