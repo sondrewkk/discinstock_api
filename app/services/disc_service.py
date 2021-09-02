@@ -31,7 +31,7 @@ async def get_discs(in_stock: bool, skip: int, limit: int
 async def get_disc_by_query(query: SearchQueryParameters
 ) -> List[DiscModel]:
     query = query.dict()
-    discs: List[DiscModel] = await db["discs"].find(query).to_list(1000)
+    discs: List[DiscModel] = await db["discs"].find(query).to_list(5000)
     return discs
 
 
