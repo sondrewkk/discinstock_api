@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from bson.objectid import ObjectId
 from fastapi.exceptions import HTTPException
 from typing import List
@@ -61,9 +61,8 @@ async def create_disc(disc: CreateDiscModel
 
     # Convert to dict and add timestamps for created and last_updated
     disc = disc.dict()
-    disc["created"] = datetime.now()
-    disc["last_updated"] = datetime.now()
-
+    disc["created"] = datetime.now(timezone.utc).isoformat()
+    disc["last_updated"] = datetime.now(timezone.utc).isoformat()
     # Insert in database, and check if write operation is okey
     result: InsertOneResult = await db["discs"].insert_one(disc)
 
@@ -88,7 +87,7 @@ async def update_disc(id: ObjectId, disc: UpdateDiscModel
 
     # In stock is the only key that triggers a last_update update
     if "in_stock" in update_data.keys() and stored_disc['in_stock'] != update_data['in_stock']:
-        update_data["last_updated"] = datetime.now()
+        update_data["last_updated"] = datetime.now(timezone.utc).isoformat()
 
     # Write over selected key and 
     result: UpdateResult = await db["discs"].update_one({"_id": id}, {"$set": update_data})
