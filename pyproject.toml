@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "discinstock_api"
-version = "1.0.12"
+version = "1.0.13"
 description = "API for discinstock.no. Currently serving discs endpoint with search functionality"
 authors = ["Sondre William Kaldhussæter-Knutsen <knutsensondre@gmail.com>"]
 

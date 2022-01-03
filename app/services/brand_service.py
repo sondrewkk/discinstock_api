@@ -13,11 +13,34 @@ db = client[db_name]
 
 async def get_brands(
 ):
+    # Get a list of brands, where disc is in stock, sorted alphabetically.
     distinct_brands_pipeline = [
-        {'$group': {'_id': None, 'name': {'$addToSet': {'$cond': {'if': {'$eq': ['$brand', None]}, 'then': '$$REMOVE', 'else': '$brand'}}}}},
-        {"$unwind": "$name"},
-        {"$sort": {"name": 1}},
-        {"$project": {"_id": False}},
+    {
+        '$group': {
+            '_id': None, 
+            'name': {
+                '$addToSet': {
+                    '$cond': {
+                        'if': '$in_stock', 
+                        'then': '$brand', 
+                        'else': '$$REMOVE'
+                    }
+                }
+            }
+        }
+        }, {
+            '$unwind': {
+                'path': '$name'
+            }
+        }, {
+            '$sort': {
+                'name': 1
+            }
+        }, {
+            '$project': {
+                '_id': False
+            }
+        }
     ]
 
     collation = Collation("en", strength=2)
