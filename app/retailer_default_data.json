@@ -39,7 +39,7 @@
     {
         "name": "gurudiscgolf.no",
         "link": "https://gurudiscgolf.no/",
-        "logo": "https://gurudiscgolf.no/image/catalog/logo_gurudiscgolf.png",
+        "logo": "https://new.sunesport.no/content/uploads/sites/2/2021/12/cropped-Guru-Lysbla-png-170x43.png",
         "country": "no"
     },
     {
@@ -52,6 +52,30 @@
         "name": "frisbeefeber.no",
         "link": "https://www.frisbeefeber.no/",
         "logo": "https://www.frisbeefeber.no/users/frisbeefeber_mystore_no/logo/Header07.10.214.png",
+        "country": "no"
+    },
+    {
+        "link": "https://www.spinnvilldg.no",
+        "logo": "https://static.wixstatic.com/media/ed9f0c_7269b090f0144f9abcddebc465b0f584~mv2.png",
+        "country": "no",
+        "name": "spinnvilldg.no"
+    },
+    {
+        "name": "discoverdiscs.no",
+        "link": "https://www.discoverdiscs.no/",
+        "logo": "https://cdn.shopify.com/s/files/1/0592/0879/4292/files/Oransj_transparent_b892c3d8-311c-4914-9936-79fe2e0eb81e_300x.png?v=1633289095",
+        "country": "no"
+    },
+    {
+        "name": "prodisc.no",
+        "link": "https://www.prodisc.no/",
+        "logo": "https://cdn.shopify.com/s/files/1/0621/3428/8624/files/32196_ProDisc_preferably_AK_PB-01_300x.png?v=1643453697",
+        "country": "no" 
+    },
+    {
+        "name": "tbksport.no",
+        "link": "https://www.tbksport.no/",
+        "logo": "https://www.tbksport.no/wp-content/uploads/2021/09/toby_dyes_logo.png",
         "country": "no"
     }
 ]

@@ -14,6 +14,7 @@ class DiscModel(BaseModel):
     in_stock: bool
     url: str
     retailer: str
+    retailer_id: str
     brand: str
     price: int
     speed: Optional[float]
@@ -37,6 +38,7 @@ class DiscModel(BaseModel):
                 "spider_name": "dgshop",
                 "in_stock": "true",
                 "retailer": "dgshop.no",
+                "retailer_id": "aHR0cHM6Ly93d3cudGJrc3BvcnQubm8va2FzdGFwbGFzdC1qYXJuLTQv",
                 "brand": "Kastaplast",
                 "price": "145",
                 "speed": "3",
@@ -55,6 +57,7 @@ class CreateDiscModel(BaseModel):
     in_stock: bool
     url: str
     retailer: str
+    retailer_id: str
     brand: str
     price: int
     speed: Optional[float]
@@ -69,6 +72,7 @@ class UpdateDiscModel(BaseModel):
     in_stock: Optional[bool]
     url: Optional[str]
     retailer: Optional[str]
+    retailer_id: Optional[str]
     brand: Optional[str]
     price: Optional[int]
     speed: Optional[float]

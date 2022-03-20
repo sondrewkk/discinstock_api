@@ -50,10 +50,7 @@ async def count_discs(in_stock: bool = True
 async def create_disc(disc: CreateDiscModel
 ) -> DiscModel:
     # Check if the disc is already stored in the database
-    exists = await db["discs"].find_one({
-        "name": disc.name, 
-        "spider_name": disc.spider_name,
-    })
+    exists = await db["discs"].find_one({"retailer_id": disc.retailer_id})
 
     # Return an error if it it
     if exists:
@@ -63,6 +60,7 @@ async def create_disc(disc: CreateDiscModel
     disc = disc.dict()
     disc["created"] = datetime.now(timezone.utc).isoformat()
     disc["last_updated"] = datetime.now(timezone.utc).isoformat()
+    
     # Insert in database, and check if write operation is okey
     result: InsertOneResult = await db["discs"].insert_one(disc)
 
