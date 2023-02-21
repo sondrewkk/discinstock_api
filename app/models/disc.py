@@ -17,6 +17,8 @@ class DiscModel(BaseModel):
     retailer_id: str
     brand: str
     price: int
+    on_sale: bool
+    presale: bool
     speed: Optional[float]
     glide: Optional[float]
     turn: Optional[float]
@@ -41,6 +43,8 @@ class DiscModel(BaseModel):
                 "retailer_id": "aHR0cHM6Ly93d3cudGJrc3BvcnQubm8va2FzdGFwbGFzdC1qYXJuLTQv",
                 "brand": "Kastaplast",
                 "price": "145",
+                "on_sale": "false",
+                "presale": "false",
                 "speed": "3",
                 "glide": "3",
                 "turn": "0",
@@ -60,6 +64,8 @@ class CreateDiscModel(BaseModel):
     retailer_id: str
     brand: str
     price: int
+    on_sale: bool
+    presale: bool
     speed: Optional[float]
     glide: Optional[float]
     turn: Optional[float]
@@ -75,6 +81,8 @@ class UpdateDiscModel(BaseModel):
     retailer_id: Optional[str]
     brand: Optional[str]
     price: Optional[int]
+    on_sale: Optional[bool]
+    presale: Optional[bool]
     speed: Optional[float]
     glide: Optional[float]
     turn: Optional[float]
