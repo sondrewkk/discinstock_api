@@ -1,26 +1,26 @@
 [tool.poetry]
 name = "discinstock_api"
-version = "1.0.14"
+version = "1.0.15"
 description = "API for discinstock.no. Currently serving discs endpoint with search functionality"
 authors = ["Sondre William Kaldhussæter-Knutsen <knutsensondre@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-fastapi = "^0.70.0"
-uvicorn = {extras = ["standard"], version = "^0.15.0"}
-pymongo = "^3.11.3"
-motor = "^2.4.0"
-python-dotenv = "^0.19.1"
+python = "^3.11"
+
+uvicorn = "^0.20.0"
+python-dotenv = "^0"
 python-multipart = "^0.0.5"
 python-jose = "^3.3.0"
-cryptography = "^35.0.0"
+cryptography = "^39.0.1"
 passlib = "^1.7.4"
-bcrypt = "^3.2.0"
+bcrypt = "^4"
+black = "^23.1.0"
+motor = "^3.1"
+fastapi = "^0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.5"
-coverage = { version = "^6.0.2", extras = ["toml"]}
-black = "^21.9b0"
+pytest = "^7"
+coverage = { version = "^7.0.0", extras = ["toml"]}
 isort = { version = "^5.9.3", extras = ["pyproject"]}
 requests = "^2.23.0"
 
