@@ -1,14 +1,12 @@
 from typing import List
 from fastapi import APIRouter, status
 from fastapi.encoders import jsonable_encoder
-from fastapi.param_functions import Depends
 from fastapi.params import Body
 from fastapi.responses import JSONResponse
 from bson.objectid import ObjectId
 
 from ..services.retailer_service import get_retailers, create_retailer
 from ..models.retailer import AddRetailerModel, RetailerModel
-from ..services.auth_service import validate_token
 
 
 router = APIRouter(prefix="/retailers", tags=["Retailers"])
@@ -33,7 +31,7 @@ async def list_retailers():
     },
 )
 async def add_retailer(
-    retailer: AddRetailerModel = Body(...), valid: bool = Depends(validate_token)
+    retailer: AddRetailerModel = Body(...)
 ):
     retailer = jsonable_encoder(retailer)
     created_retailer = await create_retailer(retailer)

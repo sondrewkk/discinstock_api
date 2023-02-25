@@ -10,7 +10,6 @@ from ..services.disc_service import count_discs, get_discs, get_disc_by_query, c
 from ..dependencies.query_parameters import CommonQueryParameters, SearchQueryParameters
 from ..util.pagination import Pagination
 from ..util.link_header import LinkHeader
-from ..services.auth_service import validate_token
 
 
 router = APIRouter(prefix="/discs", tags=["Discs"])
@@ -55,7 +54,7 @@ async def search_discs(query: SearchQueryParameters = Depends()):
         401: {"detail": "Not authenticated"},
     },
 )
-async def add_disc(disc: CreateDiscModel = Body(...), valid: bool = Depends(validate_token)
+async def add_disc(disc: CreateDiscModel = Body(...)
 ):
     created_disc = await create_disc(disc)
     content = jsonable_encoder(created_disc, custom_encoder={ObjectId: str})
@@ -67,7 +66,7 @@ async def add_disc(disc: CreateDiscModel = Body(...), valid: bool = Depends(vali
     "/{id}",
     response_model=DiscModel,
 )
-async def patch_disc(id: str, disc_data: UpdateDiscModel = Body(...), valid: bool = Depends(validate_token)
+async def patch_disc(id: str, disc_data: UpdateDiscModel = Body(...)
 ):
     disc_id: ObjectId = ObjectId(id)
     updated_disc = await update_disc(disc_id ,disc_data)
@@ -75,4 +74,3 @@ async def patch_disc(id: str, disc_data: UpdateDiscModel = Body(...), valid: boo
     response = JSONResponse(content=content)
 
     return response
-

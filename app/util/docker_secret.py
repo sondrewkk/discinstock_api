@@ -11,4 +11,7 @@ def get_secret(secret_file: str):
         fallback_env = secret_file[:-5]
         secret = os.getenv(fallback_env)
 
+        if not secret:
+            raise ValueError(f"Secret {secret_file} not found")
+
     return secret
