@@ -26,13 +26,14 @@ async def list_discs(
     )
     content = jsonable_encoder(data, custom_encoder={ObjectId: str})
 
-    total: int = await count_discs(commons.in_stock)
-    pagination = Pagination(commons.pagination.skip, commons.pagination.limit, total)
-    link_header = LinkHeader(host, "discs", pagination)
+    #total: int = await count_discs(commons.in_stock)
+    #pagination = Pagination(commons.pagination.skip, commons.pagination.limit, total)
+    #link_header = LinkHeader(host, "discs", pagination)
 
-    headers = {"Link": link_header.get()}
-    response = JSONResponse(content=content, headers=headers)
+    #headers = {"Link": link_header.get()}
+    #response = JSONResponse(content=content, headers=headers)
 
+    response = JSONResponse(content=content)
     return response
 
 

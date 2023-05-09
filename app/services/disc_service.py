@@ -4,6 +4,7 @@ from fastapi.exceptions import HTTPException
 from typing import List
 from pymongo.results import UpdateResult, InsertOneResult
 
+from app.models.pyobjectid import PyObjectId
 from ..database import Database
 from ..config import Settings
 from ..models.disc import CreateDiscModel, DiscModel, UpdateDiscModel
@@ -18,14 +19,42 @@ db_name = config.mongo_db
 db = client[db_name]
 
 
+
+
 async def get_discs(in_stock: bool, skip: int, limit: int
 ) -> List[DiscModel]:
-    query = {"in_stock": in_stock}
+    #query = {"in_stock": in_stock}
 
-    discs: List[DiscModel] = await db["discs"].find(query).limit(limit).skip(
-        skip
-    ).to_list(limit)
-    return discs
+
+    disc = DiscModel(
+        _id= PyObjectId("61f7b0bf5f3e3f0a1c3f1b1a"),
+        name="Active Genius",
+        image="//cdn.shopify.com/s/files/1/0621/3428/8624/products/Active_Genius-800x800_533x.jpg?v=1642509935",
+        spider_name="prodisc",
+        in_stock=False,
+        url="https://www.prodisc.no/products/active-genius",
+        retailer="prodisc.no",
+        brand="Discmania",
+        price=109,
+        on_sale=False,
+        pre_sale=False,
+        speed=7,
+        glide=5,
+        turn=-4,
+        fade=1,
+        created=datetime.now(timezone.utc),
+        last_updated=datetime.now(timezone.utc),
+        retailer_id="bfca6ac8358334ff9b864bfedd77de90"
+    )
+
+    
+    
+    # discs: List[DiscModel] = await db["discs"].find(query).limit(limit).skip(
+    #     skip
+    # ).to_list(limit)
+    
+    # Create a list of the one disc object
+    return [disc]
 
 
 async def get_disc_by_query(query: SearchQueryParameters

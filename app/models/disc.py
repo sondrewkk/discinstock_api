@@ -2,6 +2,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from bson.objectid import ObjectId
 from datetime import datetime
+from app.util.camelize import Camelize
 
 from .pyobjectid import PyObjectId
 
@@ -18,7 +19,7 @@ class DiscModel(BaseModel):
     brand: str
     price: int
     on_sale: bool
-    presale: bool
+    pre_sale: bool
     speed: Optional[float]
     glide: Optional[float]
     turn: Optional[float]
@@ -28,8 +29,9 @@ class DiscModel(BaseModel):
 
 
     class Config:
-        allow_population_by_field_name = (True,)
-        arbitrary_types_allowed = (True,)
+        alias_generator = Camelize.to_camel
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
@@ -37,20 +39,20 @@ class DiscModel(BaseModel):
                 "name": "K3 Reko",
                 "image": "https://www.dgshop.no/pub/media/catalog/product/cache/873ab35ce770a8e6abb698435365a0d0/r/e/reko_k3_b.png",
                 "url": "https://www.dgshop.no/k3-reko",
-                "spider_name": "dgshop",
-                "in_stock": "true",
+                "spiderName": "dgshop",
+                "inStock": "true",
                 "retailer": "dgshop.no",
-                "retailer_id": "aHR0cHM6Ly93d3cudGJrc3BvcnQubm8va2FzdGFwbGFzdC1qYXJuLTQv",
+                "retailerId": "aHR0cHM6Ly93d3cudGJrc3BvcnQubm8va2FzdGFwbGFzdC1qYXJuLTQv",
                 "brand": "Kastaplast",
                 "price": "145",
-                "on_sale": "false",
-                "presale": "false",
+                "onSale": "false",
+                "preSale": "false",
                 "speed": "3",
                 "glide": "3",
                 "turn": "0",
                 "fade": "1",
                 "created": "2021-08-11T23:14:48.920Z",
-                "last_update": "2021-08-11T23:14:48.920Z",
+                "lastUpdate": "2021-08-11T23:14:48.920Z",
             }
         }
 
@@ -65,7 +67,7 @@ class CreateDiscModel(BaseModel):
     brand: str
     price: int
     on_sale: bool
-    presale: bool
+    pre_sale: bool
     speed: Optional[float]
     glide: Optional[float]
     turn: Optional[float]
@@ -82,7 +84,7 @@ class UpdateDiscModel(BaseModel):
     brand: Optional[str]
     price: Optional[int]
     on_sale: Optional[bool]
-    presale: Optional[bool]
+    pre_sale: Optional[bool]
     speed: Optional[float]
     glide: Optional[float]
     turn: Optional[float]
@@ -91,6 +93,6 @@ class UpdateDiscModel(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "in_stock": "true"
+                "inStock": "true"
             }
         }
